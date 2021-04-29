@@ -1,0 +1,10 @@
+name: "Setup Meshery"
+description: "Deploy a Service Mesh on a KinD cluster using Meshery"
+author: "DelusionalOptimist"
+inputs:
+  name:
+    description: "testing"
+runs:
+  using: "node12"
+  main: "main.js"
+  post: "cleanup.js"
