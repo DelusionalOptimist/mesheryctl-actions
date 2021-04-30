@@ -9,5 +9,5 @@ git checkout v0.5.3
 kubectl create namespace meshery
 helm install meshery --namespace meshery install/kubernetes/helm/meshery
 
-cd ../mesheryctl; make make
+cd mesheryctl; make make
 ./mesheryctl
