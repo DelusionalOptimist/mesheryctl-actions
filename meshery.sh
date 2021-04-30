@@ -29,7 +29,7 @@ build_mesheryctl() {
 	echo 'Building Mesheryctl...'
 
 	make -C ./meshery/mesheryctl make
-	cp meshery/mesheryctl/mesheryctl .
+	cp meshery/mesheryctl/mesheryctl /usr/bin
 }
 
 install_meshery() {
@@ -38,3 +38,5 @@ install_meshery() {
 	kubectl create namespace meshery
 	helm install meshery --namespace meshery meshery/install/kubernetes/helm/meshery
 }
+
+main
