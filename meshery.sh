@@ -7,7 +7,7 @@ set -o pipefail
 main() {
 
 	clone_meshery
-	build_mesheryctl
+	install_mesheryctl
 	install_meshery
 
 }
@@ -25,11 +25,25 @@ clone_meshery() {
 
 # TODO: This step shouldn't be required once
 # https://github.com/layer5io/meshery/pull/2770 gets merged
-build_mesheryctl() {
-	echo 'Building Mesheryctl...'
+install_mesheryctl() {
+	echo 'Building mesheryctl...'
 
 	make -C ./meshery/mesheryctl make
-	cp meshery/mesheryctl/mesheryctl /usr/local/bin
+
+	echo "Installing mesheryctl in /usr/local/bin..."
+
+	WHOAMI=$(whoami)
+	if mv ${PWD}/meshery/mesheryctl/mesheryctl /usr/local/bin/mesheryctl ; then
+	  echo "mesheryctl installed."
+	else
+	  if sudo mv ${PWD}/meshery/mesheryctl/mesheryctl /usr/local/bin/mesheryctl ; then
+	    echo "Permission Resolved: mesheryctl installed using sudo permissions."
+	  else
+	    echo "Cannot install mesheryctl. Check permissions of $WHOAMI for /usr/local/bin."
+	    exit 1
+	  fi
+	fi
+
 }
 
 install_meshery() {
