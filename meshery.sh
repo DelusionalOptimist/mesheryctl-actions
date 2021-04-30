@@ -29,7 +29,7 @@ build_mesheryctl() {
 	echo 'Building Mesheryctl...'
 
 	make -C ./meshery/mesheryctl make
-	cp meshery/mesheryctl/mesheryctl /usr/bin
+	cp meshery/mesheryctl/mesheryctl /usr/local/bin
 }
 
 install_meshery() {
