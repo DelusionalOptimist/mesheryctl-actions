@@ -1,11 +1,5 @@
 #!/usr/bin/env bash
 
-set -o errexit
-set -o nounset
-set -o pipefail
-
-#!/usr/bin/env bash
-
 SCRIPT_DIR=$(dirname -- "$(readlink -f "${BASH_SOURCE[0]}" || realpath "${BASH_SOURCE[0]}")")
 
 main() {
@@ -17,8 +11,9 @@ main() {
 		echo "Cluster found"
 	else
 		printf "Cluster not found. \nCreating one...\n"
-		create_k8s_cluster()
+		create_k8s_cluster
 		echo "Cluster created successfully!"
+	fi
 
 	# get kubectl
 	curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
