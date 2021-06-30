@@ -26,7 +26,6 @@ main() {
 	# get mesheryctl
   curl -L https://git.io/meshery | PLATFORM=kubernetes bash -
 
-	export TOKEN="${{ secrets.AUTH_TOKEN }}"
 	echo '{ "meshery-provider": "None", "token": null }' | jq '.token = ""' > ~/auth.json
 
 	mesheryctl perf apply --profile test --url https://google.com -t ~/auth.json
