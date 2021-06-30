@@ -19,17 +19,7 @@ main() {
 	cp $SCRIPT_DIR/config.yaml ~/.meshery
 
 	# get mesheryctl
-  curl -L https://git.io/meshery | PLATFORM=docker bash -
-
-
-	export KUBECONFIG=${HOME}/.kube/config
-	kubectl cluster-info --context kind-kind
-
-	# install meshery
-	git clone https://github.com/layer5io/meshery.git; cd meshery
-	kubectl create namespace meshery
-	helm install meshery --namespace meshery install/kubernetes/helm/meshery
-	cd ../
+  curl -L https://git.io/meshery | PLATFORM=kubernetes bash -
 
 	mesheryctl version
 
