@@ -6,7 +6,7 @@ main() {
 
 	echo "Checking if a k8s cluster exits..."
 	kubectl config current-context
-	if [ $? -eq 0]
+	if [[ $? -eq 0 ]]
 	then
 		echo "Cluster found"
 	else
