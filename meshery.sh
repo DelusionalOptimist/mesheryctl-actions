@@ -25,7 +25,6 @@ main() {
 	./get_helm.sh
 
 	# get meshery helm charts
-	curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
 	git clone https://github.com/layer5io/meshery.git; cd meshery
 	kubectl create namespace meshery
 	./$SCRIPT_DIR/yq e '.service.type = "NodePort"' -i install/kubernetes/helm/meshery/values.yaml
@@ -33,6 +32,9 @@ main() {
 	# install meshery using helm
 	helm install meshery --namespace meshery install/kubernetes/helm/meshery
 	kubectl expose deployment meshery --port=9081 --type=NodePort
+
+	kubectl config view --minify --flatten > ~/minified_config
+	mv ~/minified_config ~/.kube/config
 
 	# get mesheryctl
   curl -L https://git.io/meshery | PLATFORM=kubernetes bash -
