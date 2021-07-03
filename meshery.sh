@@ -45,17 +45,17 @@ main() {
 
 }
 
-#create_k8s_cluster() {
-#	curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
-#	sudo install minikube-linux-amd64 /usr/local/bin/minikube
-#	minikube start --driver=docker
-#}
-
 create_k8s_cluster() {
-	curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.11.1/kind-linux-amd64
-	chmod +x ./kind
-	mv ./kind usr/local/bin/kind && export KUBECONFIG=${HOME}/.kube/config
-	kind create cluster --name kind --wait 300s
+	curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+	sudo install minikube-linux-amd64 /usr/local/bin/minikube
+	minikube start --driver=docker
 }
+
+#create_k8s_cluster() {
+#	curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.11.1/kind-linux-amd64
+#	chmod +x ./kind
+#	mv ./kind usr/local/bin/kind && export KUBECONFIG=${HOME}/.kube/config
+#	kind create cluster --name kind --wait 300s
+#}
 
 main
