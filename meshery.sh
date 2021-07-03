@@ -15,12 +15,25 @@ main() {
 		echo "Cluster created successfully!"
 	fi
 
-	# TODO: config with the adapter specified by user
-	mkdir ~/.meshery
-	cp $SCRIPT_DIR/config.yaml ~/.meshery/config.yaml
+	# get yq
+	wget https://github.com/mikefarah/yq/releases/download/${VERSION}/${BINARY} -O /usr/bin/yq
+	chmod +x /usr/bin/yq
 
-	kubectl config view --minify --flatten > ~/minified_config
-	mv ~/minified_config ~/.kube/config
+	# get helm
+	curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
+	chmod 700 get_helm.sh
+	./get_helm.sh
+
+	# get meshery helm charts
+	curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
+	git clone https://github.com/layer5io/meshery.git; cd meshery
+	kubectl create namespace meshery
+	yq e '.service.type = "NodePort"' -i install/kubernetes/helm/meshery/values.yaml
+
+	# install meshery using helm
+	helm install meshery --namespace meshery install/kubernetes/helm/meshery
+	kubectl expose deployment meshery --port=9081 --type=NodePort
+
 	# get mesheryctl
   curl -L https://git.io/meshery | PLATFORM=kubernetes bash -
 
@@ -32,10 +45,17 @@ main() {
 
 }
 
+#create_k8s_cluster() {
+#	curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+#	sudo install minikube-linux-amd64 /usr/local/bin/minikube
+#	minikube start --driver=docker
+#}
+
 create_k8s_cluster() {
-	curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
-	sudo install minikube-linux-amd64 /usr/local/bin/minikube
-	minikube start --driver=docker
+	curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.11.1/kind-linux-amd64
+	chmod +x ./kind
+	mv ./kind usr/local/bin/kind && export KUBECONFIG=${HOME}/.kube/config
+	kind create cluster --name kind --wait 300s
 }
 
 main
