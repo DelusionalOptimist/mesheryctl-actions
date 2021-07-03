@@ -16,7 +16,7 @@ main() {
 	fi
 
 	# get yq
-	wget https://github.com/mikefarah/yq/releases/download/${VERSION}/${BINARY} -O $SCRIPT_DIR/yq
+	wget https://github.com/mikefarah/yq/releases/download/v4.9.6/yq_linux_amd64 -O $SCRIPT_DIR/yq
 	sudo chmod +x $SCRIPT_DIR/yq
 
 	# get helm
