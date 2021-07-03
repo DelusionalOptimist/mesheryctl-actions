@@ -16,8 +16,8 @@ main() {
 	fi
 
 	# get yq
-	wget https://github.com/mikefarah/yq/releases/download/${VERSION}/${BINARY} -O /usr/bin/yq
-	chmod +x /usr/bin/yq
+	wget https://github.com/mikefarah/yq/releases/download/${VERSION}/${BINARY} -O $SCRIPT_DIR/yq
+	sudo chmod +x $SCRIPT_DIR/yq
 
 	# get helm
 	curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
@@ -28,7 +28,7 @@ main() {
 	curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
 	git clone https://github.com/layer5io/meshery.git; cd meshery
 	kubectl create namespace meshery
-	yq e '.service.type = "NodePort"' -i install/kubernetes/helm/meshery/values.yaml
+	./$SCRIPT_DIR/yq e '.service.type = "NodePort"' -i install/kubernetes/helm/meshery/values.yaml
 
 	# install meshery using helm
 	helm install meshery --namespace meshery install/kubernetes/helm/meshery
