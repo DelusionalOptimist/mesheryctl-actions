@@ -15,29 +15,10 @@ main() {
 		echo "Cluster created successfully!"
 	fi
 
-	# get yq
-	wget https://github.com/mikefarah/yq/releases/download/v4.9.6/yq_linux_amd64 -O $SCRIPT_DIR/yq
-	sudo chmod +x $SCRIPT_DIR/yq
-
-	# get helm
-	curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
-	chmod 700 get_helm.sh
-	./get_helm.sh
-
-	# get meshery helm charts
-	git clone https://github.com/layer5io/meshery.git; cd meshery
-	kubectl create namespace meshery
-	./$SCRIPT_DIR/yq e '.service.type = "NodePort"' -i install/kubernetes/helm/meshery/values.yaml
-
-	# install meshery using helm
-	helm install meshery --namespace meshery install/kubernetes/helm/meshery
-	kubectl expose deployment meshery --port=9081 --type=NodePort
+  curl -L https://git.io/meshery | PLATFORM=kubernetes bash -
 
 	kubectl config view --minify --flatten > ~/minified_config
 	mv ~/minified_config ~/.kube/config
-
-	# get mesheryctl
-  curl -L https://git.io/meshery | PLATFORM=kubernetes bash -
 
 	echo '{ "meshery-provider": "None", "token": null }' | jq '.token = ""' > ~/auth.json
 
