@@ -22,7 +22,7 @@ main() {
 
 	echo '{ "meshery-provider": "None", "token": null }' | jq '.token = ""' > ~/auth.json
 
-	sleep 15
+	sleep 180
 
 	mesheryctl perf apply --profile test --url https://google.com -t ~/auth.json
 
