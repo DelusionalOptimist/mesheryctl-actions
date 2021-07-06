@@ -31,6 +31,8 @@ main() {
 create_k8s_cluster() {
 	curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
 	sudo install minikube-linux-amd64 /usr/local/bin/minikube
+	sudo apt update -y
+	sudo apt install conntrack
 	minikube version
 	minikube start --driver=docker --kubernetes-version=v1.20.7
 	sleep 60
