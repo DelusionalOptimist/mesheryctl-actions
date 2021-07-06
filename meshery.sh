@@ -22,7 +22,7 @@ main() {
 
 	echo '{ "meshery-provider": "None", "token": null }' | jq '.token = ""' > ~/auth.json
 
-	sleep 180
+	sleep 120
 
 	mesheryctl perf apply --profile test --url https://google.com -t ~/auth.json
 
@@ -32,6 +32,7 @@ create_k8s_cluster() {
 	curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
 	sudo install minikube-linux-amd64 /usr/local/bin/minikube
 	minikube start --driver=docker
+	sleep 60
 }
 
 #create_k8s_cluster() {
