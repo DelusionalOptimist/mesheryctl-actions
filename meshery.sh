@@ -22,7 +22,7 @@ main() {
 
 	echo '{ "meshery-provider": "None", "token": null }' | jq '.token = ""' > ~/auth.json
 
-	sleep 120
+	sleep 30
 
 	mesheryctl perf apply --profile test --url https://google.com -t ~/auth.json
 
@@ -35,14 +35,7 @@ create_k8s_cluster() {
 	sudo apt install conntrack
 	minikube version
 	minikube start --driver=none --kubernetes-version=v1.20.7
-	sleep 60
+	sleep 40
 }
-
-#create_k8s_cluster() {
-#	curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.11.1/kind-linux-amd64
-#	chmod +x ./kind
-#	mv ./kind usr/local/bin/kind && export KUBECONFIG=${HOME}/.kube/config
-#	kind create cluster --name kind --wait 300s
-#}
 
 main
