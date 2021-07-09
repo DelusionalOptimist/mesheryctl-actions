@@ -23,9 +23,6 @@ main() {
 	echo '{ "meshery-provider": "None", "token": null }' | jq '.token = ""' > ~/auth.json
 
 	sleep 30
-
-	mesheryctl perf apply --profile test --url https://google.com -t ~/auth.json
-
 }
 
 create_k8s_cluster() {
