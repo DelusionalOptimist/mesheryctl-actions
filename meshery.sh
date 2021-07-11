@@ -1,9 +1,5 @@
 #!/usr/bin/env bash
 
-set -o errexit
-set -o nounset
-set -o pipefail
-
 SCRIPT_DIR=$(dirname -- "$(readlink -f "${BASH_SOURCE[0]}" || realpath "${BASH_SOURCE[0]}")")
 
 main() {
@@ -29,12 +25,12 @@ main() {
 	cat ~/auth.json
 
   curl -L https://git.io/meshery | PLATFORM=kubernetes bash -
-	mesheryctl system config minikube -t ~/auth.json
 
 	kubectl config view --minify --flatten > ~/minified_config
 	mv ~/minified_config ~/.kube/config
 
 	sleep 30
+	mesheryctl system config minikube -t ~/auth.json
 }
 
 create_k8s_cluster() {
