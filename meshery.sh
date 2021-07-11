@@ -17,9 +17,11 @@ main() {
 		echo "Cluster created successfully!"
 	fi
 
-	echo $provider_token
+	echo "token = $provider_token"
 
 	echo '{ "meshery-provider": "Meshery", "token": null }' | jq -c '.token = "'$provider_token'"' > ~/auth.json
+
+	cat ~/auth.json
 
   curl -L https://git.io/meshery | PLATFORM=kubernetes bash -
 	mesheryctl system config minikube -t ~/auth.json
