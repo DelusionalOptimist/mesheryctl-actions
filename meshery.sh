@@ -18,8 +18,13 @@ main() {
 		echo "Cluster created successfully!"
 	fi
 
-	echo "token = $provider_token"
-	echo '{ "meshery-provider": "Meshery", "token": null }' | jq -c '.token = "'$provider_token'"' > ~/auth.json
+	if [[ -z $provider_token ]]
+	then
+		printf "Token not provided.\n Using local provider..."
+		echo '{ "meshery-provider": "none", "token": "" }' | jq -c > ~/auth.json
+	else
+		echo '{ "meshery-provider": "Meshery", "token": null }' | jq -c '.token = "'$provider_token'"' > ~/auth.json
+
 	cat ~/auth.json
 
 	kubectl config view --minify --flatten > ~/minified_config
