@@ -42,7 +42,7 @@ parse_command_line() {
 			case "${1:-}" in
 					-t|--provider-token)
 						if [[ -n "${2:-}" ]]; then
-							provider_token="$2"
+							provider_token=$2
 							shift
 						else
 							echo "ERROR: '-t|--provider_token' cannot be empty." >&2
