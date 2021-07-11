@@ -4,14 +4,6 @@ author: "DelusionalOptimist"
 inputs:
   provider_token:
     description: "provider token to use"
-  spec:
-    description: "spec to run. possible values: SMI, SMP, istio-vet"
-    required: true
-  service_mesh:
-    # used for provisioning appropriate meshery-adatper
-    # right now just the adapter name:port
-    description: "service mesh to use"
-    required: true
 runs:
   using: "node12"
   main: "main.js"
