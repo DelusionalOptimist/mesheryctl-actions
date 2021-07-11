@@ -4,6 +4,11 @@ author: "DelusionalOptimist"
 inputs:
   provider_token:
     description: "provider token to use"
+  spec:
+    description: "spec to run. possible values: SMI, SMP, istio-vet"
+  service_mesh:
+    # used for provisioning appropriate meshery-adatper
+    description: "service mesh to use"
 runs:
   using: "node12"
   main: "main.js"
