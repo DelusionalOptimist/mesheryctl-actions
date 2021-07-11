@@ -22,7 +22,7 @@ main() {
 	kubectl config view --minify --flatten > ~/minified_config
 	mv ~/minified_config ~/.kube/config
 
-	echo '{ "meshery-provider": "Meshery", "token": null }' | jq '.token = "'$provider_token'"' > ~/auth.json
+	echo '{ "meshery-provider": "Meshery", "token": null }' | jq -c '.token = "'$provider_token'"' > ~/auth.json
 
 	sleep 30
 }
