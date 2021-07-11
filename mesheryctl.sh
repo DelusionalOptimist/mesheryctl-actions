@@ -11,8 +11,7 @@ main() {
 }
 
 build_mesheryctl() {
-	git clone https://github.com/DelusionalOptimist/meshery.git
-	git checkout fix-mesh-validate
+	git clone -b fix-mesh-validate https://github.com/DelusionalOptimist/meshery.git
 	make -C meshery/mesheryctl/ make
 	mv ./mehsery/mesheryctl ~/
 }
