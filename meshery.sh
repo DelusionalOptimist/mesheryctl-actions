@@ -4,6 +4,8 @@ SCRIPT_DIR=$(dirname -- "$(readlink -f "${BASH_SOURCE[0]}" || realpath "${BASH_S
 
 main() {
 
+	parse_command_line "$@"
+
 	echo "Checking if a k8s cluster exits..."
 	kubectl config current-context
 	if [[ $? -eq 0 ]]
@@ -20,7 +22,7 @@ main() {
 	kubectl config view --minify --flatten > ~/minified_config
 	mv ~/minified_config ~/.kube/config
 
-	echo '{ "meshery-provider": "None", "token": null }' | jq '.token = ""' > ~/auth.json
+	echo '{ "meshery-provider": "Meshery", "token": null }' | jq '.token = "'$provider_token'"' > ~/auth.json
 
 	sleep 30
 }
@@ -33,6 +35,26 @@ create_k8s_cluster() {
 	minikube version
 	minikube start --driver=none --kubernetes-version=v1.20.7
 	sleep 40
+}
+
+parse_command_line() {
+	while :; do
+			case "${1:-}" in
+					-t|--provider-token)
+						if [[ -n "${2:-}" ]]; then
+							provider_token="$2"
+							shift
+						else
+							echo "ERROR: '-t|--provider_token' cannot be empty." >&2
+							exit 1
+						fi
+						;;
+					*)
+						break
+						;;
+				esac
+				shift
+			done
 }
 
 main

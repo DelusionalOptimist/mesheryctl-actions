@@ -2,8 +2,8 @@ name: "Setup Meshery"
 description: "Deploy a Service Mesh on a KinD cluster using Meshery"
 author: "DelusionalOptimist"
 inputs:
-  meshery-adapter:
-    description: "name of the meshery adapter to use"
+  provider-token:
+    description: "provider token to use"
 runs:
   using: "node12"
   main: "main.js"
