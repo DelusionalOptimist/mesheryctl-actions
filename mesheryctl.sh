@@ -7,6 +7,7 @@ main() {
 	# temporary
 	build_mesheryctl
 
+	~/mesheryctl system config minikube -t ~/auth.json
 	~/mesheryctl mesh validate "$@" -t ~/auth.json
 }
 
