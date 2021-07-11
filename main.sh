@@ -19,7 +19,7 @@ main() {
 		commandArgs+=(--spec ${INPUT_SPEC})
 	fi
 
-	if [[ -n "${INPUT_SERVICE_MESH}" ]]; then
+	if [[ -n "${INPUT_SERVICE_MESH:-}" ]]; then
 		commandArgs+=(--adapter ${INPUT_SERVICE_MESH})
 	fi
 	"$SCRIPT_DIR/mesheryctl.sh" "${commandArgs[@]}"

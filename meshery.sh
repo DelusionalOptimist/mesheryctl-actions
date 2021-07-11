@@ -32,7 +32,7 @@ main() {
 
   curl -L https://git.io/meshery | PLATFORM=kubernetes bash -
 
-	sleep 30
+	sleep 60
 }
 
 create_k8s_cluster() {
