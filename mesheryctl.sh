@@ -11,9 +11,10 @@ main() {
 }
 
 build_mesheryctl() {
-	git clone -b fix-mesh-validate https://github.com/DelusionalOptimist/meshery.git
-	make -C meshery/mesheryctl/ make
-	mv ./mehsery/mesheryctl ~/
+	git clone -b fix-mesh-validate https://github.com/DelusionalOptimist/meshery.git ~/meshery
+	make -C ~/meshery/mesheryctl/ make
+	mv ~/mehsery/mesheryctl/mesheryctl ~/mesheryctl
+	chmod +x ~/mesheryctl
 }
 
-main
+main "$@"
