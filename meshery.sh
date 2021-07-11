@@ -22,6 +22,8 @@ main() {
 	kubectl config view --minify --flatten > ~/minified_config
 	mv ~/minified_config ~/.kube/config
 
+	echo $provider_token
+
 	echo '{ "meshery-provider": "Meshery", "token": null }' | jq -c '.token = "'$provider_token'"' > ~/auth.json
 
 	sleep 30
@@ -43,6 +45,7 @@ parse_command_line() {
 					-t|--provider-token)
 						if [[ -n "${2:-}" ]]; then
 							provider_token=$2
+							echo $provider_token
 							shift
 						else
 							echo "ERROR: '-t|--provider_token' cannot be empty." >&2
