@@ -17,14 +17,15 @@ main() {
 		echo "Cluster created successfully!"
 	fi
 
-  curl -L https://git.io/meshery | PLATFORM=kubernetes bash -
-
-	kubectl config view --minify --flatten > ~/minified_config
-	mv ~/minified_config ~/.kube/config
-
 	echo $provider_token
 
 	echo '{ "meshery-provider": "Meshery", "token": null }' | jq -c '.token = "'$provider_token'"' > ~/auth.json
+
+  curl -L https://git.io/meshery | PLATFORM=kubernetes bash -
+	mesheryctl system config minikube -t ~/auth.json
+
+	kubectl config view --minify --flatten > ~/minified_config
+	mv ~/minified_config ~/.kube/config
 
 	sleep 30
 }
