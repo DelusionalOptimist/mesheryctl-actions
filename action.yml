@@ -2,7 +2,7 @@ name: "Setup Meshery"
 description: "Deploy a Service Mesh on a KinD cluster using Meshery"
 author: "DelusionalOptimist"
 inputs:
-  provider-token:
+  provider_token:
     description: "provider token to use"
 runs:
   using: "node12"
