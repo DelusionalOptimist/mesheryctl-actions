@@ -9,7 +9,6 @@ SCRIPT_DIR=$(dirname -- "$(readlink -f "${BASH_SOURCE[0]}" || realpath "${BASH_S
 main() {
 	args=()
 	if [[ -n "${INPUT_PROVIDER_TOKEN:-}" ]]; then
-		echo $INPUT_PROVIDER_TOKEN
 		args+=(--provider-token ${INPUT_PROVIDER_TOKEN})
 	fi
 

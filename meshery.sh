@@ -19,18 +19,14 @@ main() {
 	fi
 
 	echo "token = $provider_token"
-
 	echo '{ "meshery-provider": "Meshery", "token": null }' | jq -c '.token = "'$provider_token'"' > ~/auth.json
-
-	cat ~/auth.json
-
-  curl -L https://git.io/meshery | PLATFORM=kubernetes bash -
 
 	kubectl config view --minify --flatten > ~/minified_config
 	mv ~/minified_config ~/.kube/config
 
+  curl -L https://git.io/meshery | PLATFORM=kubernetes bash -
+
 	sleep 30
-	mesheryctl system config minikube -t ~/auth.json
 }
 
 create_k8s_cluster() {
@@ -44,24 +40,24 @@ create_k8s_cluster() {
 }
 
 parse_command_line() {
-	while :; do
-			case "${1:-}" in
-					-t|--provider-token)
-						if [[ -n "${2:-}" ]]; then
-							provider_token=$2
-							echo $provider_token
-							shift
-						else
-							echo "ERROR: '-t|--provider_token' cannot be empty." >&2
-							exit 1
-						fi
-						;;
-					*)
-						break
-						;;
-				esac
-				shift
-			done
+	while :
+	do
+		case "${1:-}" in
+			-t|--provider-token)
+				if [[ -n "${2:-}" ]]; then
+					provider_token=$2
+					shift
+				else
+					echo "ERROR: '-t|--provider_token' cannot be empty." >&2
+					exit 1
+				fi
+				;;
+			*)
+				break
+				;;
+		esac
+		shift
+	done
 }
 
-main
+main "$@"
