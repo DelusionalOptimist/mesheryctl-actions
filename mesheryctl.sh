@@ -9,6 +9,8 @@ main() {
 
 	# temporary
 	build_mesheryctl
+	curl -LO https://github.com/DelusionalOptimist/meshery/releases/download/v0.5.44/mesheryctl
+	sudo install mesheryctl /usr/local/bin/mesheryctl
 
 	parse_command_line "$@"
 	docker network connect bridge meshery_meshery_1
@@ -19,13 +21,6 @@ main() {
 	~/mesheryctl system config minikube -t ~/auth.json
 	echo $spec $service_mesh_adapter
 	~/mesheryctl mesh validate --spec $spec --adapter $service_mesh_adapter -t ~/auth.json
-}
-
-build_mesheryctl() {
-	git clone -b fix-mesh-validate https://github.com/DelusionalOptimist/meshery.git ~/meshery
-	make -C ~/meshery/mesheryctl/ make
-	mv ~/meshery/mesheryctl/mesheryctl ~/mesheryctl
-	chmod +x ~/mesheryctl
 }
 
 parse_command_line() {
