@@ -9,8 +9,8 @@ main() {
 
 	# temporary
 	build_mesheryctl
-	curl -LO https://github.com/DelusionalOptimist/meshery/releases/download/v0.5.44/mesheryctl
-	sudo install mesheryctl /usr/local/bin/mesheryctl
+	curl -L https://github.com/DelusionalOptimist/meshery/releases/download/v0.5.44/mesheryctl --output ~/mesheryctl
+	sudo install ~/mesheryctl /usr/local/bin/mesheryctl
 
 	parse_command_line "$@"
 	docker network connect bridge meshery_meshery_1
