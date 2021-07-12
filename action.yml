@@ -1,19 +1,19 @@
-name: "Setup Meshery"
-description: "Deploy a Service Mesh on a KinD cluster using Meshery"
-author: "DelusionalOptimist"
+name: "Meshery Service Mesh Spec Validation Action"
+description: "Validate service mesh specifications using Meshery"
+author: "Layer5"
 inputs:
   provider_token:
-    description: "provider token to use"
+    description: "Provider token to use. NOTE: value of the 'token' key in auth.json"
   spec:
-    description: "spec to run. possible values: SMI, SMP, istio-vet"
+    description: "Spec to run. Possible values: SMI, istio-vet. (SMP coming soon)"
     required: true
   service_mesh:
     # used for provisioning appropriate meshery-adatper
-    # right now just the adapter name:port
-    description: "service mesh to use"
+    description: "Service mesh to use. e.g: osm, istio etc"
     required: true
   platform:
-    description: "platform to deploy meshery on"
+    description: "Platform to deploy meshery on. Possible values: docker, kubernetes"
+    default: docker
 runs:
   using: "node12"
   main: "main.js"
