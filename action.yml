@@ -12,6 +12,8 @@ inputs:
     # right now just the adapter name:port
     description: "service mesh to use"
     required: true
+  platform:
+    description: "platform to deploy meshery on"
 runs:
   using: "node12"
   main: "main.js"

@@ -5,10 +5,16 @@ SCRIPT_DIR=$(dirname -- "$(readlink -f "${BASH_SOURCE[0]}" || realpath "${BASH_S
 main() {
 	local service_mesh_adapter=
 	local spec=
+	local service_mesh=
 
 	# temporary
 	build_mesheryctl
+
 	parse_command_line "$@"
+	docker network connect bridge meshery_meshery_1
+	docker network connect minikube meshery_meshery_1
+	docker network connect minikube meshery_meshery-"'$service_mesh'"_1
+	docker network connect bridge meshery_meshery-"'$service_mesh'"_1
 
 	~/mesheryctl system config minikube -t ~/auth.json
 	echo $spec $service_mesh_adapter
@@ -29,6 +35,7 @@ parse_command_line() {
 			--service-mesh)
 				if [[ -n "${2:-}" ]]; then
 					# figure out assigning port numbers and adapter names
+					service_mesh=$2
 					service_mesh_adapter="meshery-$2:10009"
 					shift
 				else

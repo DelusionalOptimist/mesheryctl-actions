@@ -12,6 +12,10 @@ main() {
 		setupArgs+=(--provider-token ${INPUT_PROVIDER_TOKEN})
 	fi
 
+	if [[ -n "${INPUT_PLATFORM:-}" ]]; then
+		setupArgs+=(--platform ${INPUT_PLATFORM})
+	fi
+
 	"$SCRIPT_DIR/meshery.sh" "${setupArgs[@]}"
 
 	commandArgs=()

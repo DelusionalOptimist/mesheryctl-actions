@@ -5,6 +5,8 @@ SCRIPT_DIR=$(dirname -- "$(readlink -f "${BASH_SOURCE[0]}" || realpath "${BASH_S
 main() {
 
 	local provider_token=
+	local PLATFORM=docker
+
 	parse_command_line "$@"
 
 	echo "Checking if a k8s cluster exits..."
@@ -30,7 +32,7 @@ main() {
 	kubectl config view --minify --flatten > ~/minified_config
 	mv ~/minified_config ~/.kube/config
 
-  curl -L https://git.io/meshery | PLATFORM=kubernetes bash -
+  curl -L https://git.io/meshery | PLATFORM=$PLATFORM bash -
 
 	sleep 60
 }
@@ -55,6 +57,15 @@ parse_command_line() {
 					shift
 				else
 					echo "ERROR: '-t|--provider_token' cannot be empty." >&2
+					exit 1
+				fi
+				;;
+			-p|--platform)
+				if [[ -n "${2:-}" ]]; then
+					PLATFORM=$2
+					shift
+				else
+					echo "ERROR: '-p|--platform' cannot be empty." >&2
 					exit 1
 				fi
 				;;
