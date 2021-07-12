@@ -13,8 +13,8 @@ main() {
 	parse_command_line "$@"
 	docker network connect bridge meshery_meshery_1
 	docker network connect minikube meshery_meshery_1
-	docker network connect minikube meshery_meshery-"'$service_mesh'"_1
-	docker network connect bridge meshery_meshery-"'$service_mesh'"_1
+	docker network connect minikube meshery_meshery-"$service_mesh"_1
+	docker network connect bridge meshery_meshery-"$service_mesh"_1
 
 	~/mesheryctl system config minikube -t ~/auth.json
 	echo $spec $service_mesh_adapter
