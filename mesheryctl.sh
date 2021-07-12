@@ -10,6 +10,7 @@ main() {
 	# temporary
 	# this is a patched version of mesheryctl
 	curl -L https://github.com/DelusionalOptimist/meshery/releases/download/v0.5.44/mesheryctl --output ~/mesheryctl
+	chmod +x ~/mesheryctl
 
 	parse_command_line "$@"
 	docker network connect bridge meshery_meshery_1
