@@ -11,6 +11,7 @@ main() {
 	parse_command_line "$@"
 
 	~/mesheryctl system config minikube -t ~/auth.json
+	echo $spec $service_mesh_adapter
 	~/mesheryctl mesh validate --spec $spec --adapter $service_mesh_adapter -t ~/auth.json
 }
 
