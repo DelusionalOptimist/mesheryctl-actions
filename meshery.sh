@@ -20,6 +20,8 @@ main() {
 		echo "Cluster created successfully!"
 	fi
 
+	echo $INPUT_SPEC
+
 	if [[ -z $provider_token ]]
 	then
 		printf "Token not provided.\n Using local provider..."
