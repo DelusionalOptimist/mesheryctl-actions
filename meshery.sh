@@ -20,7 +20,7 @@ main() {
 		echo "Cluster created successfully!"
 	fi
 
-	echo $INPUT_SPEC
+	echo "SPEC: $INPUT_SPEC"
 
 	if [[ -z $provider_token ]]
 	then
